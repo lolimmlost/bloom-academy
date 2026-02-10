@@ -1,0 +1,40 @@
+{
+  "id": "03-tanstack-start",
+  "type": "code-write",
+  "language": "tsx",
+  "starterCode": "// Create a route for the home page\n// that displays \"Welcome to Indigo Sun Florals\"\n\n",
+  "solution": "import { createFileRoute } from \"@tanstack/react-router\"\n\nexport const Route = createFileRoute(\"/\")({\n  component: HomePage,\n})\n\nfunction HomePage() {\n  return <h1>Welcome to Indigo Sun Florals</h1>\n}",
+  "completions": [
+    { "label": "createFileRoute", "type": "function", "detail": "@tanstack/react-router", "template": "createFileRoute" },
+    { "label": "import { createFileRoute } from \"@tanstack/react-router\"", "type": "keyword", "detail": "import statement", "template": "import { createFileRoute } from \"@tanstack/react-router\"\n" },
+    { "label": "Route", "type": "variable", "detail": "export const Route" },
+    { "label": "component", "type": "property", "detail": "route option" },
+    { "label": "HomePage", "type": "function", "detail": "component" }
+  ],
+  "tests": [
+    {
+      "id": "t1",
+      "label": "Imports createFileRoute from @tanstack/react-router",
+      "type": "string-includes",
+      "value": "createFileRoute"
+    },
+    {
+      "id": "t2",
+      "label": "Creates a route for the root path '/'",
+      "type": "regex",
+      "value": "createFileRoute\\s*\\(\\s*[\"']/[\"']\\s*\\)"
+    },
+    {
+      "id": "t3",
+      "label": "Contains a component with the welcome text",
+      "type": "string-includes",
+      "value": "Welcome to Indigo Sun Florals"
+    },
+    {
+      "id": "t4",
+      "label": "Uses an h1 element",
+      "type": "string-includes",
+      "value": "<h1>"
+    }
+  ]
+}

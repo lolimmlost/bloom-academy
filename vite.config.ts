@@ -8,6 +8,10 @@ import devtoolsJson from "vite-plugin-devtools-json"
 import viteTsConfigPaths from "vite-tsconfig-paths"
 
 const config = defineConfig({
+    server: {
+        host: "0.0.0.0",
+        allowedHosts: ["dev.appahouse.com", "localhost"],
+    },
     plugins: [
         viteTsConfigPaths({
             projects: ["./tsconfig.json"]

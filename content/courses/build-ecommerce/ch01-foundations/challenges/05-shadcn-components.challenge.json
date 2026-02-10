@@ -1,0 +1,46 @@
+{
+  "id": "05-shadcn-components",
+  "type": "code-write",
+  "language": "tsx",
+  "starterCode": "// Create a product card using shadcn/ui components\n// Include: Card, CardHeader, CardTitle, CardContent, Button\n\nfunction ProductCard() {\n  return (\n    \n  )\n}\n",
+  "solution": "function ProductCard() {\n  return (\n    <Card>\n      <CardHeader>\n        <CardTitle>Sunrise Bouquet</CardTitle>\n      </CardHeader>\n      <CardContent>\n        <p>$45.00</p>\n        <Button>Add to Cart</Button>\n      </CardContent>\n    </Card>\n  )\n}",
+  "completions": [
+    { "label": "Card", "type": "keyword", "detail": "shadcn/ui component" },
+    { "label": "CardHeader", "type": "keyword", "detail": "shadcn/ui component" },
+    { "label": "CardTitle", "type": "keyword", "detail": "shadcn/ui component" },
+    { "label": "CardContent", "type": "keyword", "detail": "shadcn/ui component" },
+    { "label": "Button", "type": "keyword", "detail": "shadcn/ui component" }
+  ],
+  "tests": [
+    {
+      "id": "t1",
+      "label": "Uses Card component",
+      "type": "string-includes",
+      "value": "<Card>"
+    },
+    {
+      "id": "t2",
+      "label": "Uses CardHeader and CardTitle",
+      "type": "string-includes",
+      "value": "<CardTitle>"
+    },
+    {
+      "id": "t3",
+      "label": "Has product name 'Sunrise Bouquet'",
+      "type": "string-includes",
+      "value": "Sunrise Bouquet"
+    },
+    {
+      "id": "t4",
+      "label": "Has price '$45.00'",
+      "type": "string-includes",
+      "value": "$45.00"
+    },
+    {
+      "id": "t5",
+      "label": "Has an Add to Cart button",
+      "type": "string-includes",
+      "value": "Add to Cart"
+    }
+  ]
+}

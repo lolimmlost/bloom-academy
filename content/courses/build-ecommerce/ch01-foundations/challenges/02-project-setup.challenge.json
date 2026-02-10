@@ -1,0 +1,33 @@
+{
+  "id": "02-project-setup",
+  "type": "code-write",
+  "language": "json",
+  "starterCode": "{\n  \n}",
+  "solution": "{\n  \"name\": \"indigo-sun-florals\",\n  \"type\": \"module\",\n  \"scripts\": {\n    \"dev\": \"vite dev --port 3000\"\n  }\n}",
+  "tests": [
+    {
+      "id": "t1",
+      "label": "Has a name field set to 'indigo-sun-florals'",
+      "type": "regex",
+      "value": "\"name\"\\s*:\\s*\"indigo-sun-florals\""
+    },
+    {
+      "id": "t2",
+      "label": "Has type set to 'module'",
+      "type": "regex",
+      "value": "\"type\"\\s*:\\s*\"module\""
+    },
+    {
+      "id": "t3",
+      "label": "Has a scripts object",
+      "type": "string-includes",
+      "value": "\"scripts\""
+    },
+    {
+      "id": "t4",
+      "label": "Has a dev script",
+      "type": "regex",
+      "value": "\"dev\"\\s*:"
+    }
+  ]
+}

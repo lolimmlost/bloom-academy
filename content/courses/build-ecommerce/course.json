@@ -1,0 +1,7 @@
+{
+  "id": "build-ecommerce",
+  "slug": "build-ecommerce",
+  "title": "Build an E-Commerce Site",
+  "description": "Learn to build a full-stack e-commerce platform like Indigo Sun Florals using TanStack Start, Drizzle ORM, Better Auth, and Stripe.",
+  "icon": "ShoppingBag"
+}

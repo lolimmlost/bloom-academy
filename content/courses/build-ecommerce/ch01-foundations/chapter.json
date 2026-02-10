@@ -1,0 +1,7 @@
+{
+  "id": "ch01-foundations",
+  "slug": "ch01-foundations",
+  "title": "Project Foundations",
+  "description": "Set up your development environment and learn the core technologies: TanStack Start, file-based routing, Tailwind CSS, and shadcn/ui.",
+  "order": 1
+}

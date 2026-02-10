@@ -9,14 +9,58 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as WelcomeRouteImport } from './routes/welcome'
+import { Route as SettingsRouteImport } from './routes/settings'
+import { Route as SearchRouteImport } from './routes/search'
+import { Route as ProfileRouteImport } from './routes/profile'
+import { Route as AchievementsRouteImport } from './routes/achievements'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as CoursesIndexRouteImport } from './routes/courses/index'
 import { Route as AuthPathRouteImport } from './routes/auth/$path'
 import { Route as AccountPathRouteImport } from './routes/account/$path'
+import { Route as CoursesCourseSlugIndexRouteImport } from './routes/courses/$courseSlug/index'
+import { Route as ApiProgressIndexRouteImport } from './routes/api/progress/index'
+import { Route as ApiUserStatsRouteImport } from './routes/api/user/stats'
+import { Route as ApiUserProfileRouteImport } from './routes/api/user/profile'
+import { Route as ApiUserActivityRouteImport } from './routes/api/user/activity'
+import { Route as ApiProgressSyncRouteImport } from './routes/api/progress/sync'
+import { Route as ApiProgressCompleteRouteImport } from './routes/api/progress/complete'
 import { Route as ApiAuthSplatRouteImport } from './routes/api/auth/$'
+import { Route as CoursesCourseSlugChapterSlugLessonSlugRouteImport } from './routes/courses/$courseSlug/$chapterSlug/$lessonSlug'
 
+const WelcomeRoute = WelcomeRouteImport.update({
+  id: '/welcome',
+  path: '/welcome',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SettingsRoute = SettingsRouteImport.update({
+  id: '/settings',
+  path: '/settings',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SearchRoute = SearchRouteImport.update({
+  id: '/search',
+  path: '/search',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ProfileRoute = ProfileRouteImport.update({
+  id: '/profile',
+  path: '/profile',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AchievementsRoute = AchievementsRouteImport.update({
+  id: '/achievements',
+  path: '/achievements',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CoursesIndexRoute = CoursesIndexRouteImport.update({
+  id: '/courses/',
+  path: '/courses/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AuthPathRoute = AuthPathRouteImport.update({
@@ -29,53 +73,247 @@ const AccountPathRoute = AccountPathRouteImport.update({
   path: '/account/$path',
   getParentRoute: () => rootRouteImport,
 } as any)
+const CoursesCourseSlugIndexRoute = CoursesCourseSlugIndexRouteImport.update({
+  id: '/courses/$courseSlug/',
+  path: '/courses/$courseSlug/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiProgressIndexRoute = ApiProgressIndexRouteImport.update({
+  id: '/api/progress/',
+  path: '/api/progress/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiUserStatsRoute = ApiUserStatsRouteImport.update({
+  id: '/api/user/stats',
+  path: '/api/user/stats',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiUserProfileRoute = ApiUserProfileRouteImport.update({
+  id: '/api/user/profile',
+  path: '/api/user/profile',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiUserActivityRoute = ApiUserActivityRouteImport.update({
+  id: '/api/user/activity',
+  path: '/api/user/activity',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiProgressSyncRoute = ApiProgressSyncRouteImport.update({
+  id: '/api/progress/sync',
+  path: '/api/progress/sync',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiProgressCompleteRoute = ApiProgressCompleteRouteImport.update({
+  id: '/api/progress/complete',
+  path: '/api/progress/complete',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ApiAuthSplatRoute = ApiAuthSplatRouteImport.update({
   id: '/api/auth/$',
   path: '/api/auth/$',
   getParentRoute: () => rootRouteImport,
 } as any)
+const CoursesCourseSlugChapterSlugLessonSlugRoute =
+  CoursesCourseSlugChapterSlugLessonSlugRouteImport.update({
+    id: '/courses/$courseSlug/$chapterSlug/$lessonSlug',
+    path: '/courses/$courseSlug/$chapterSlug/$lessonSlug',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/achievements': typeof AchievementsRoute
+  '/profile': typeof ProfileRoute
+  '/search': typeof SearchRoute
+  '/settings': typeof SettingsRoute
+  '/welcome': typeof WelcomeRoute
   '/account/$path': typeof AccountPathRoute
   '/auth/$path': typeof AuthPathRoute
+  '/courses': typeof CoursesIndexRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
+  '/api/progress/complete': typeof ApiProgressCompleteRoute
+  '/api/progress/sync': typeof ApiProgressSyncRoute
+  '/api/user/activity': typeof ApiUserActivityRoute
+  '/api/user/profile': typeof ApiUserProfileRoute
+  '/api/user/stats': typeof ApiUserStatsRoute
+  '/api/progress': typeof ApiProgressIndexRoute
+  '/courses/$courseSlug': typeof CoursesCourseSlugIndexRoute
+  '/courses/$courseSlug/$chapterSlug/$lessonSlug': typeof CoursesCourseSlugChapterSlugLessonSlugRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/achievements': typeof AchievementsRoute
+  '/profile': typeof ProfileRoute
+  '/search': typeof SearchRoute
+  '/settings': typeof SettingsRoute
+  '/welcome': typeof WelcomeRoute
   '/account/$path': typeof AccountPathRoute
   '/auth/$path': typeof AuthPathRoute
+  '/courses': typeof CoursesIndexRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
+  '/api/progress/complete': typeof ApiProgressCompleteRoute
+  '/api/progress/sync': typeof ApiProgressSyncRoute
+  '/api/user/activity': typeof ApiUserActivityRoute
+  '/api/user/profile': typeof ApiUserProfileRoute
+  '/api/user/stats': typeof ApiUserStatsRoute
+  '/api/progress': typeof ApiProgressIndexRoute
+  '/courses/$courseSlug': typeof CoursesCourseSlugIndexRoute
+  '/courses/$courseSlug/$chapterSlug/$lessonSlug': typeof CoursesCourseSlugChapterSlugLessonSlugRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/achievements': typeof AchievementsRoute
+  '/profile': typeof ProfileRoute
+  '/search': typeof SearchRoute
+  '/settings': typeof SettingsRoute
+  '/welcome': typeof WelcomeRoute
   '/account/$path': typeof AccountPathRoute
   '/auth/$path': typeof AuthPathRoute
+  '/courses/': typeof CoursesIndexRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
+  '/api/progress/complete': typeof ApiProgressCompleteRoute
+  '/api/progress/sync': typeof ApiProgressSyncRoute
+  '/api/user/activity': typeof ApiUserActivityRoute
+  '/api/user/profile': typeof ApiUserProfileRoute
+  '/api/user/stats': typeof ApiUserStatsRoute
+  '/api/progress/': typeof ApiProgressIndexRoute
+  '/courses/$courseSlug/': typeof CoursesCourseSlugIndexRoute
+  '/courses/$courseSlug/$chapterSlug/$lessonSlug': typeof CoursesCourseSlugChapterSlugLessonSlugRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/account/$path' | '/auth/$path' | '/api/auth/$'
+  fullPaths:
+    | '/'
+    | '/achievements'
+    | '/profile'
+    | '/search'
+    | '/settings'
+    | '/welcome'
+    | '/account/$path'
+    | '/auth/$path'
+    | '/courses'
+    | '/api/auth/$'
+    | '/api/progress/complete'
+    | '/api/progress/sync'
+    | '/api/user/activity'
+    | '/api/user/profile'
+    | '/api/user/stats'
+    | '/api/progress'
+    | '/courses/$courseSlug'
+    | '/courses/$courseSlug/$chapterSlug/$lessonSlug'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/account/$path' | '/auth/$path' | '/api/auth/$'
-  id: '__root__' | '/' | '/account/$path' | '/auth/$path' | '/api/auth/$'
+  to:
+    | '/'
+    | '/achievements'
+    | '/profile'
+    | '/search'
+    | '/settings'
+    | '/welcome'
+    | '/account/$path'
+    | '/auth/$path'
+    | '/courses'
+    | '/api/auth/$'
+    | '/api/progress/complete'
+    | '/api/progress/sync'
+    | '/api/user/activity'
+    | '/api/user/profile'
+    | '/api/user/stats'
+    | '/api/progress'
+    | '/courses/$courseSlug'
+    | '/courses/$courseSlug/$chapterSlug/$lessonSlug'
+  id:
+    | '__root__'
+    | '/'
+    | '/achievements'
+    | '/profile'
+    | '/search'
+    | '/settings'
+    | '/welcome'
+    | '/account/$path'
+    | '/auth/$path'
+    | '/courses/'
+    | '/api/auth/$'
+    | '/api/progress/complete'
+    | '/api/progress/sync'
+    | '/api/user/activity'
+    | '/api/user/profile'
+    | '/api/user/stats'
+    | '/api/progress/'
+    | '/courses/$courseSlug/'
+    | '/courses/$courseSlug/$chapterSlug/$lessonSlug'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AchievementsRoute: typeof AchievementsRoute
+  ProfileRoute: typeof ProfileRoute
+  SearchRoute: typeof SearchRoute
+  SettingsRoute: typeof SettingsRoute
+  WelcomeRoute: typeof WelcomeRoute
   AccountPathRoute: typeof AccountPathRoute
   AuthPathRoute: typeof AuthPathRoute
+  CoursesIndexRoute: typeof CoursesIndexRoute
   ApiAuthSplatRoute: typeof ApiAuthSplatRoute
+  ApiProgressCompleteRoute: typeof ApiProgressCompleteRoute
+  ApiProgressSyncRoute: typeof ApiProgressSyncRoute
+  ApiUserActivityRoute: typeof ApiUserActivityRoute
+  ApiUserProfileRoute: typeof ApiUserProfileRoute
+  ApiUserStatsRoute: typeof ApiUserStatsRoute
+  ApiProgressIndexRoute: typeof ApiProgressIndexRoute
+  CoursesCourseSlugIndexRoute: typeof CoursesCourseSlugIndexRoute
+  CoursesCourseSlugChapterSlugLessonSlugRoute: typeof CoursesCourseSlugChapterSlugLessonSlugRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/welcome': {
+      id: '/welcome'
+      path: '/welcome'
+      fullPath: '/welcome'
+      preLoaderRoute: typeof WelcomeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/settings': {
+      id: '/settings'
+      path: '/settings'
+      fullPath: '/settings'
+      preLoaderRoute: typeof SettingsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/search': {
+      id: '/search'
+      path: '/search'
+      fullPath: '/search'
+      preLoaderRoute: typeof SearchRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/profile': {
+      id: '/profile'
+      path: '/profile'
+      fullPath: '/profile'
+      preLoaderRoute: typeof ProfileRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/achievements': {
+      id: '/achievements'
+      path: '/achievements'
+      fullPath: '/achievements'
+      preLoaderRoute: typeof AchievementsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/courses/': {
+      id: '/courses/'
+      path: '/courses'
+      fullPath: '/courses'
+      preLoaderRoute: typeof CoursesIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/auth/$path': {
@@ -92,6 +330,55 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AccountPathRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/courses/$courseSlug/': {
+      id: '/courses/$courseSlug/'
+      path: '/courses/$courseSlug'
+      fullPath: '/courses/$courseSlug'
+      preLoaderRoute: typeof CoursesCourseSlugIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/progress/': {
+      id: '/api/progress/'
+      path: '/api/progress'
+      fullPath: '/api/progress'
+      preLoaderRoute: typeof ApiProgressIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/user/stats': {
+      id: '/api/user/stats'
+      path: '/api/user/stats'
+      fullPath: '/api/user/stats'
+      preLoaderRoute: typeof ApiUserStatsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/user/profile': {
+      id: '/api/user/profile'
+      path: '/api/user/profile'
+      fullPath: '/api/user/profile'
+      preLoaderRoute: typeof ApiUserProfileRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/user/activity': {
+      id: '/api/user/activity'
+      path: '/api/user/activity'
+      fullPath: '/api/user/activity'
+      preLoaderRoute: typeof ApiUserActivityRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/progress/sync': {
+      id: '/api/progress/sync'
+      path: '/api/progress/sync'
+      fullPath: '/api/progress/sync'
+      preLoaderRoute: typeof ApiProgressSyncRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/progress/complete': {
+      id: '/api/progress/complete'
+      path: '/api/progress/complete'
+      fullPath: '/api/progress/complete'
+      preLoaderRoute: typeof ApiProgressCompleteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/auth/$': {
       id: '/api/auth/$'
       path: '/api/auth/$'
@@ -99,14 +386,36 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiAuthSplatRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/courses/$courseSlug/$chapterSlug/$lessonSlug': {
+      id: '/courses/$courseSlug/$chapterSlug/$lessonSlug'
+      path: '/courses/$courseSlug/$chapterSlug/$lessonSlug'
+      fullPath: '/courses/$courseSlug/$chapterSlug/$lessonSlug'
+      preLoaderRoute: typeof CoursesCourseSlugChapterSlugLessonSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AchievementsRoute: AchievementsRoute,
+  ProfileRoute: ProfileRoute,
+  SearchRoute: SearchRoute,
+  SettingsRoute: SettingsRoute,
+  WelcomeRoute: WelcomeRoute,
   AccountPathRoute: AccountPathRoute,
   AuthPathRoute: AuthPathRoute,
+  CoursesIndexRoute: CoursesIndexRoute,
   ApiAuthSplatRoute: ApiAuthSplatRoute,
+  ApiProgressCompleteRoute: ApiProgressCompleteRoute,
+  ApiProgressSyncRoute: ApiProgressSyncRoute,
+  ApiUserActivityRoute: ApiUserActivityRoute,
+  ApiUserProfileRoute: ApiUserProfileRoute,
+  ApiUserStatsRoute: ApiUserStatsRoute,
+  ApiProgressIndexRoute: ApiProgressIndexRoute,
+  CoursesCourseSlugIndexRoute: CoursesCourseSlugIndexRoute,
+  CoursesCourseSlugChapterSlugLessonSlugRoute:
+    CoursesCourseSlugChapterSlugLessonSlugRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

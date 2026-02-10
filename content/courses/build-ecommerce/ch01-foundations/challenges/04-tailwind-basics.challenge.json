@@ -1,0 +1,47 @@
+{
+  "id": "04-tailwind-basics",
+  "type": "code-write",
+  "language": "ts",
+  "starterCode": "// Write a Tailwind class string for a centered flex column container\nconst containerClasses = \"\"\n",
+  "solution": "const containerClasses = \"max-w-4xl mx-auto p-6 flex flex-col gap-4\"",
+  "completions": [
+    { "label": "max-w-4xl", "type": "keyword", "detail": "max width" },
+    { "label": "mx-auto", "type": "keyword", "detail": "horizontal centering" },
+    { "label": "flex", "type": "keyword", "detail": "display flex" },
+    { "label": "flex-col", "type": "keyword", "detail": "column direction" },
+    { "label": "gap-4", "type": "keyword", "detail": "spacing 1rem" },
+    { "label": "p-6", "type": "keyword", "detail": "padding 1.5rem" }
+  ],
+  "tests": [
+    {
+      "id": "t1",
+      "label": "Includes max-w-4xl for max width",
+      "type": "string-includes",
+      "value": "max-w-4xl"
+    },
+    {
+      "id": "t2",
+      "label": "Includes mx-auto for horizontal centering",
+      "type": "string-includes",
+      "value": "mx-auto"
+    },
+    {
+      "id": "t3",
+      "label": "Includes p-6 for padding",
+      "type": "string-includes",
+      "value": "p-6"
+    },
+    {
+      "id": "t4",
+      "label": "Includes flex and flex-col for column layout",
+      "type": "regex",
+      "value": "flex[\\s\"'].*flex-col|flex-col[\\s\"'].*flex"
+    },
+    {
+      "id": "t5",
+      "label": "Includes gap-4 for spacing",
+      "type": "string-includes",
+      "value": "gap-4"
+    }
+  ]
+}
