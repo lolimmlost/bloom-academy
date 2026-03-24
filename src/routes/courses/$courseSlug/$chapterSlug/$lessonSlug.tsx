@@ -10,6 +10,7 @@ import { LessonNav } from "@/components/lesson/lesson-nav"
 import { SignupPrompt } from "@/components/lesson/signup-prompt"
 import { showXPGainToast } from "@/components/gamification/xp-gain-toast"
 import { useProgress } from "@/lib/progress/hooks"
+import { useSettings } from "@/lib/settings/context"
 import { authClient } from "@/lib/auth-client"
 import { Button } from "@/components/ui/button"
 import { CheckCircle2 } from "lucide-react"
@@ -98,6 +99,7 @@ function LessonPage() {
   const { courseSlug, chapterSlug } = Route.useParams()
   const navigate = useNavigate()
   const { completeLesson, getLessonStatus, markLessonInProgress, progress } = useProgress()
+  const { settings } = useSettings()
   const { data: session } = authClient.useSession()
 
   const [showComplete, setShowComplete] = useState(false)
@@ -149,13 +151,24 @@ function LessonPage() {
       allCourseLessons: courseData.allCourseLessonIds,
     })
 
-    if (result.xpEarned > 0) {
+    if (result.xpEarned > 0 && settings.showXPToasts) {
       showXPGainToast(result.xpEarned)
     }
 
     setCompletionResult(result)
-    setShowComplete(true)
-  }, [lesson, completeLesson, allChapterLessonIds, courseData.allCourseLessonIds])
+    if (settings.confirmLessonComplete) {
+      setShowComplete(true)
+    } else if (settings.autoAdvance && nextLesson) {
+      navigate({
+        to: "/courses/$courseSlug/$chapterSlug/$lessonSlug",
+        params: {
+          courseSlug: nextLesson.courseSlug,
+          chapterSlug: nextLesson.chapterSlug,
+          lessonSlug: nextLesson.slug,
+        },
+      })
+    }
+  }, [lesson, completeLesson, allChapterLessonIds, courseData.allCourseLessonIds, settings.showXPToasts, settings.confirmLessonComplete, settings.autoAdvance, nextLesson, navigate])
 
   const handleCodeComplete = useCallback((params: {
     code: string

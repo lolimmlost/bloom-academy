@@ -5,6 +5,7 @@ import { ThemeProvider } from "next-themes"
 import { authClient } from "@/lib/auth-client"
 import { MetaTheme } from "./meta-theme"
 import { ProgressProvider } from "@/lib/progress/context"
+import { SettingsProvider } from "@/lib/settings/context"
 
 export function Providers({ children }: { children: React.ReactNode }) {
     const { navigate } = useRouter()
@@ -22,9 +23,11 @@ export function Providers({ children }: { children: React.ReactNode }) {
                 replace={(href) => navigate({ href, replace: true })}
                 Link={({ href, ...props }) => <Link to={href} {...props} />}
             >
-                <ProgressProvider>
-                    {children}
-                </ProgressProvider>
+                <SettingsProvider>
+                    <ProgressProvider>
+                        {children}
+                    </ProgressProvider>
+                </SettingsProvider>
 
                 <MetaTheme />
             </AuthUIProvider>

@@ -9,6 +9,7 @@ import { SolutionViewer } from "./solution-viewer"
 import type { Challenge } from "@/lib/content/types"
 import type { SandboxResult } from "@/lib/engine/sandbox"
 import { runTests } from "@/lib/engine/test-runner"
+import { useSettings } from "@/lib/settings/context"
 
 interface CodeChallengeProps {
   challenge: Challenge
@@ -23,6 +24,7 @@ interface CodeChallengeProps {
 }
 
 export function CodeChallenge({ challenge, hints, onComplete }: CodeChallengeProps) {
+  const { settings } = useSettings()
   const [code, setCode] = useState(challenge.starterCode)
   const [results, setResults] = useState<SandboxResult | null>(null)
   const [isRunning, setIsRunning] = useState(false)
@@ -93,6 +95,12 @@ export function CodeChallenge({ challenge, hints, onComplete }: CodeChallengePro
           onChange={setCode}
           language={challenge.language}
           completions={challenge.completions}
+          fontSize={settings.editorFontSize}
+          tabSize={settings.editorTabSize}
+          lineNumbers={settings.editorLineNumbers}
+          wordWrap={settings.editorWordWrap}
+          bracketMatching={settings.editorBracketMatching}
+          closeBrackets={settings.editorAutoCloseBrackets}
           className="h-full"
         />
       </div>
