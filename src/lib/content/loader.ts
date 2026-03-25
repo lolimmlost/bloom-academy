@@ -1,6 +1,6 @@
 import fs from "node:fs"
 import path from "node:path"
-import type { Course, Chapter, LessonMeta, LessonContent, Challenge } from "./types"
+import type { Course, Chapter, LessonMeta, LessonContent, Challenge, QuizQuestion } from "./types"
 import { parseLesson } from "./parser"
 
 const CONTENT_DIR = path.resolve(process.cwd(), "content/courses")
@@ -84,16 +84,22 @@ export function getLesson(courseSlug: string, chapterSlug: string, lessonSlug: s
   const raw = fs.readFileSync(path.join(chapterPath, file), "utf-8")
   const { meta, body } = parseLesson(raw, courseJson.id, chapterJson.id)
 
-  // Load challenge if exists
+  // Load challenge / quiz if exists
   const challengeDir = path.join(chapterPath, "challenges")
   let challenge: Challenge | undefined
+  let quizQuestions: QuizQuestion[] | undefined
 
   if (fs.existsSync(challengeDir)) {
-    const challengeFile = fs.readdirSync(challengeDir).find((f) => f.startsWith(lessonSlug) && f.endsWith(".json"))
+    const challengeFile = fs.readdirSync(challengeDir).find((f) => f.startsWith(lessonSlug) && f.endsWith(".challenge.json"))
     if (challengeFile) {
       challenge = JSON.parse(fs.readFileSync(path.join(challengeDir, challengeFile), "utf-8"))
     }
+
+    const quizFile = fs.readdirSync(challengeDir).find((f) => f.startsWith(lessonSlug) && f.endsWith(".quiz.json"))
+    if (quizFile) {
+      quizQuestions = JSON.parse(fs.readFileSync(path.join(challengeDir, quizFile), "utf-8"))
+    }
   }
 
-  return { ...meta, body, challenge }
+  return { ...meta, body, challenge, quizQuestions }
 }

@@ -5,6 +5,7 @@ import { useState, useCallback, useRef, useEffect } from "react"
 import { LessonSkeleton } from "@/components/error/loading-skeleton"
 import { LessonContent } from "@/components/lesson/lesson-content"
 import { CodeChallenge } from "@/components/lesson/code-challenge"
+import { QuizChallenge } from "@/components/lesson/quiz-challenge"
 import { LessonComplete } from "@/components/lesson/lesson-complete"
 import { LessonNav } from "@/components/lesson/lesson-nav"
 import { SignupPrompt } from "@/components/lesson/signup-prompt"
@@ -225,8 +226,20 @@ function LessonPage() {
     )
   }
 
+  const handleQuizComplete = useCallback(() => {
+    if (!lesson) return
+    const timeSpentSecs = Math.round((Date.now() - startTime.current) / 1000)
+    doComplete({
+      code: "",
+      attempts: 1,
+      hintsUsed: 0,
+      solutionViewed: false,
+      timeSpentSecs,
+    })
+  }, [lesson, doComplete])
+
   const isCompleted = getLessonStatus(lesson.courseId, lesson.chapterId, lesson.id) === "completed"
-  const isInfoLesson = !lesson.challenge
+  const isInfoLesson = !lesson.challenge && !lesson.quizQuestions
 
   return (
     <div className="flex flex-col lg:flex-row h-[calc(100vh-3.5rem)]">
@@ -276,6 +289,17 @@ function LessonPage() {
             challenge={lesson.challenge}
             hints={lesson.hints ?? []}
             onComplete={handleCodeComplete}
+          />
+        </div>
+      )}
+
+      {/* Right panel: Quiz */}
+      {lesson.quizQuestions && lesson.quizQuestions.length > 0 && (
+        <div className="flex-1 flex flex-col border-t lg:border-t-0 min-h-[400px] overflow-auto">
+          <QuizChallenge
+            key={lesson.id}
+            questions={lesson.quizQuestions}
+            onComplete={handleQuizComplete}
           />
         </div>
       )}

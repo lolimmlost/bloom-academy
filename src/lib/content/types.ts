@@ -37,6 +37,7 @@ export interface LessonMeta {
 export interface LessonContent extends LessonMeta {
   body: string // markdown content
   challenge?: Challenge
+  quizQuestions?: QuizQuestion[]
 }
 
 export interface Challenge {
