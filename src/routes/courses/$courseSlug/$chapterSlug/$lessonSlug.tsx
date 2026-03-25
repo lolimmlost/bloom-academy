@@ -107,6 +107,7 @@ function LessonPage() {
   const [completionResult, setCompletionResult] = useState<CompletionResult | null>(null)
   const [showSignupPrompt, setShowSignupPrompt] = useState(false)
   const startTime = useRef(Date.now())
+  const contentRef = useRef<HTMLDivElement>(null)
 
   // Compute navigation data
   const allLessonsFlat = courseData.chapters.flatMap((ch: ChapterLessonData) =>
@@ -122,9 +123,10 @@ function LessonPage() {
   const currentChapter = courseData.chapters.find((ch: ChapterLessonData) => ch.slug === chapterSlug)
   const allChapterLessonIds = currentChapter?.lessons.map((l: { id: string }) => l.id) ?? []
 
-  // Mark lesson in-progress on mount
+  // Scroll content panel to top and mark lesson in-progress on lesson change
   useEffect(() => {
     if (lesson) {
+      contentRef.current?.scrollTo(0, 0)
       markLessonInProgress(lesson.courseId, lesson.chapterId, lesson.id)
     }
   }, [lesson?.id])
@@ -245,7 +247,7 @@ function LessonPage() {
     <div className="flex flex-col lg:flex-row h-[calc(100vh-3.5rem)]">
       {/* Left panel: Lesson content */}
       <div className="flex-1 lg:border-r flex flex-col min-h-0">
-        <div className="flex-1 overflow-auto">
+        <div ref={contentRef} className="flex-1 overflow-auto">
           <LessonContent
             title={lesson.title}
             body={lesson.body}
