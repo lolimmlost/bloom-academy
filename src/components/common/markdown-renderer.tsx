@@ -71,9 +71,11 @@ export function MarkdownRenderer({ content, className }: MarkdownRendererProps) 
                 </code>
               )
             }
+            // Trim leading/trailing whitespace to prevent extra blank lines in code blocks
+            const trimmed = typeof children === "string" ? children.replace(/^\n+|\n+$/g, "") : children
             return (
               <code className={`${cn} block`} {...props}>
-                {children}
+                {trimmed}
               </code>
             )
           },
