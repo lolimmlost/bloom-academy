@@ -18,7 +18,7 @@ const config = defineConfig({
         }),
         tailwindcss(),
         tanstackStart(),
-        nitroV2Plugin({ preset: "vercel" }),
+        nitroV2Plugin({ preset: "node-server" }),
         viteReact(),
         devtoolsJson()
     ]

@@ -1,0 +1,16 @@
+node_modules
+.output
+.nitro
+.tanstack
+.vinxi
+.vercel
+.wrangler
+dist
+dist-ssr
+screenshots
+test-results
+coverage
+.env
+.env.local
+.DS_Store
+*.local
