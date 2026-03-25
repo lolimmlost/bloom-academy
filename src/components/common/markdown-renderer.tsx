@@ -62,19 +62,18 @@ export function MarkdownRenderer({ content, className }: MarkdownRendererProps) 
           li: ({ children }: any) => (
             <li className="leading-7">{children}</li>
           ),
-          code: ({ className: cn, children, ...props }: any) => {
-            const isInline = !cn
-            if (isInline) {
+          code: ({ className: cn, children, node, ...props }: any) => {
+            const isBlock = node?.position && String(children).includes("\n")
+            if (!isBlock && !cn) {
               return (
                 <code className="bg-muted px-1.5 py-0.5 rounded text-sm font-mono" {...props}>
                   {children}
                 </code>
               )
             }
-            // Trim leading/trailing whitespace to prevent extra blank lines in code blocks
             const trimmed = typeof children === "string" ? children.replace(/^\n+|\n+$/g, "") : children
             return (
-              <code className={`${cn} block`} {...props}>
+              <code className={`${cn || ""} block`} {...props}>
                 {trimmed}
               </code>
             )
