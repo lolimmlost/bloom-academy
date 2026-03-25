@@ -1,0 +1,20 @@
+{
+  "id": "05-protected-routes",
+  "type": "code-write",
+  "language": "typescript",
+  "starterCode": "// Create a beforeLoad function that checks authentication\n// Redirect to /auth if the user is not logged in\n\n",
+  "solution": "import { redirect } from \"@tanstack/react-router\"\nimport { auth } from \"@/lib/auth\"\n\nexport async function authGuard({ request }: { request: Request }) {\n  const session = await auth.api.getSession({\n    headers: request.headers,\n  })\n\n  if (!session) {\n    throw redirect({ to: \"/auth\" })\n  }\n\n  return { user: session.user }\n}",
+  "completions": [
+    { "label": "redirect", "type": "function", "detail": "@tanstack/react-router" },
+    { "label": "auth.api.getSession", "type": "method", "detail": "get server session" },
+    { "label": "request.headers", "type": "property", "detail": "request headers" },
+    { "label": "throw redirect", "type": "keyword", "detail": "redirect navigation" }
+  ],
+  "tests": [
+    { "id": "t1", "label": "Imports redirect", "type": "string-includes", "value": "redirect" },
+    { "id": "t2", "label": "Gets the session from auth", "type": "string-includes", "value": "getSession" },
+    { "id": "t3", "label": "Checks if session exists", "type": "string-includes", "value": "!session" },
+    { "id": "t4", "label": "Redirects to /auth when not authenticated", "type": "string-includes", "value": "/auth" },
+    { "id": "t5", "label": "Returns user data when authenticated", "type": "string-includes", "value": "session.user" }
+  ]
+}

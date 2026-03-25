@@ -1,0 +1,21 @@
+{
+  "id": "03-dynamic-routes",
+  "type": "code-write",
+  "language": "tsx",
+  "starterCode": "// Create a product detail route\n// Load product by ID from the URL parameter\n\n",
+  "solution": "import { createFileRoute } from \"@tanstack/react-router\"\nimport { createServerFn } from \"@tanstack/react-start\"\nimport { db } from \"@/database/db\"\nimport { products } from \"@/database/schema\"\nimport { eq } from \"drizzle-orm\"\n\nconst fetchProduct = createServerFn(\"GET\", async (id: string) => {\n  const result = await db.select().from(products).where(eq(products.id, id))\n  return result[0] ?? null\n})\n\nexport const Route = createFileRoute(\"/products/$id\")({\n  loader: ({ params }) => fetchProduct(params.id),\n  component: ProductDetail,\n})\n\nfunction ProductDetail() {\n  const product = Route.useLoaderData()\n  return <h1>{product.name}</h1>\n}",
+  "completions": [
+    { "label": "createFileRoute", "type": "function", "detail": "@tanstack/react-router" },
+    { "label": "createServerFn", "type": "function", "detail": "@tanstack/react-start" },
+    { "label": "params.id", "type": "property", "detail": "route parameter" },
+    { "label": "Route.useLoaderData()", "type": "method", "detail": "get loaded data" },
+    { "label": "eq", "type": "function", "detail": "equals filter" }
+  ],
+  "tests": [
+    { "id": "t1", "label": "Creates a route with $id parameter", "type": "string-includes", "value": "/products/$id" },
+    { "id": "t2", "label": "Uses a server function to fetch product", "type": "string-includes", "value": "createServerFn" },
+    { "id": "t3", "label": "Filters by product ID using eq()", "type": "string-includes", "value": "eq(" },
+    { "id": "t4", "label": "Has a loader that passes params", "type": "string-includes", "value": "params.id" },
+    { "id": "t5", "label": "Uses useLoaderData to access product", "type": "string-includes", "value": "useLoaderData" }
+  ]
+}

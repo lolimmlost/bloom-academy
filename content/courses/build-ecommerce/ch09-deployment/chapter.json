@@ -1,0 +1,7 @@
+{
+  "id": "ch09-deployment",
+  "slug": "ch09-deployment",
+  "title": "Deployment",
+  "description": "Deploy your app to production with Docker, environment variables, and monitoring.",
+  "order": 9
+}

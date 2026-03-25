@@ -1,0 +1,21 @@
+{
+  "id": "02-better-auth-setup",
+  "type": "code-write",
+  "language": "typescript",
+  "starterCode": "// Set up Better Auth with Drizzle adapter\n// Enable email and password authentication\n\n",
+  "solution": "import { betterAuth } from \"better-auth\"\nimport { drizzleAdapter } from \"better-auth/adapters/drizzle\"\nimport { db } from \"@/database/db\"\nimport * as schema from \"@/database/schema\"\n\nexport const auth = betterAuth({\n  database: drizzleAdapter(db, {\n    provider: \"pg\",\n    schema,\n  }),\n  emailAndPassword: {\n    enabled: true,\n  },\n})",
+  "completions": [
+    { "label": "betterAuth", "type": "function", "detail": "better-auth" },
+    { "label": "drizzleAdapter", "type": "function", "detail": "better-auth/adapters/drizzle" },
+    { "label": "emailAndPassword", "type": "property", "detail": "auth method config" },
+    { "label": "database", "type": "property", "detail": "database adapter" },
+    { "label": "provider", "type": "property", "detail": "database provider" }
+  ],
+  "tests": [
+    { "id": "t1", "label": "Imports betterAuth", "type": "string-includes", "value": "betterAuth" },
+    { "id": "t2", "label": "Imports drizzleAdapter", "type": "string-includes", "value": "drizzleAdapter" },
+    { "id": "t3", "label": "Uses drizzleAdapter for database", "type": "string-includes", "value": "drizzleAdapter(db" },
+    { "id": "t4", "label": "Enables email and password auth", "type": "string-includes", "value": "emailAndPassword" },
+    { "id": "t5", "label": "Sets enabled to true", "type": "regex", "value": "enabled\\s*:\\s*true" }
+  ]
+}

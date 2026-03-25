@@ -1,0 +1,22 @@
+{
+  "id": "03-component-testing",
+  "type": "code-write",
+  "language": "tsx",
+  "starterCode": "// Write a component test for ProductCard\n// Test that it renders product info and handles add to cart click\n\n",
+  "solution": "import { describe, it, expect, vi } from \"vitest\"\nimport { render, screen } from \"@testing-library/react\"\nimport userEvent from \"@testing-library/user-event\"\nimport { ProductCard } from \"./ProductCard\"\n\ndescribe(\"ProductCard\", () => {\n  it(\"renders product name and price\", () => {\n    render(<ProductCard name=\"Sunset Tulips\" price={3500} onAddToCart={() => {}} />)\n    expect(screen.getByText(\"Sunset Tulips\")).toBeDefined()\n    expect(screen.getByText(\"$35.00\")).toBeDefined()\n  })\n\n  it(\"calls onAddToCart when button is clicked\", async () => {\n    const onAddToCart = vi.fn()\n    render(<ProductCard name=\"Sunset Tulips\" price={3500} onAddToCart={onAddToCart} />)\n    await userEvent.click(screen.getByRole(\"button\"))\n    expect(onAddToCart).toHaveBeenCalledOnce()\n  })\n})",
+  "completions": [
+    { "label": "render", "type": "function", "detail": "@testing-library/react" },
+    { "label": "screen", "type": "object", "detail": "query container" },
+    { "label": "screen.getByText", "type": "method", "detail": "find by text" },
+    { "label": "screen.getByRole", "type": "method", "detail": "find by ARIA role" },
+    { "label": "userEvent.click", "type": "method", "detail": "simulate click" },
+    { "label": "vi.fn()", "type": "function", "detail": "mock function" }
+  ],
+  "tests": [
+    { "id": "t1", "label": "Imports render and screen from Testing Library", "type": "string-includes", "value": "@testing-library/react" },
+    { "id": "t2", "label": "Uses render to mount component", "type": "string-includes", "value": "render(" },
+    { "id": "t3", "label": "Uses screen queries to find elements", "type": "string-includes", "value": "screen.getBy" },
+    { "id": "t4", "label": "Tests user interaction with click", "type": "string-includes", "value": "click(" },
+    { "id": "t5", "label": "Uses vi.fn() for mock callback", "type": "string-includes", "value": "vi.fn()" }
+  ]
+}

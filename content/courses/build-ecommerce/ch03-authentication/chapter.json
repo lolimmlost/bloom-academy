@@ -1,0 +1,7 @@
+{
+  "id": "ch03-authentication",
+  "slug": "ch03-authentication",
+  "title": "Authentication with Better Auth",
+  "description": "Add secure user authentication with email/password login, sessions, and route protection.",
+  "order": 3
+}

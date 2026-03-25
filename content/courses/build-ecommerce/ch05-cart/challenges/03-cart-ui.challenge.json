@@ -1,0 +1,19 @@
+{
+  "id": "03-cart-ui",
+  "type": "code-write",
+  "language": "tsx",
+  "starterCode": "// Create a CartSummary component\n// Display items with quantities and a total\n\ntype CartItem = { id: string; name: string; price: number; quantity: number }\n\n",
+  "solution": "type CartItem = { id: string; name: string; price: number; quantity: number }\n\nexport function CartSummary({ items }: { items: CartItem[] }) {\n  const total = items.reduce((sum, item) => sum + item.price * item.quantity, 0)\n\n  if (items.length === 0) {\n    return <p>Your cart is empty</p>\n  }\n\n  return (\n    <div>\n      {items.map((item) => (\n        <div key={item.id} className=\"flex justify-between py-2\">\n          <span>{item.name} x {item.quantity}</span>\n          <span>${(item.price * item.quantity / 100).toFixed(2)}</span>\n        </div>\n      ))}\n      <div className=\"border-t pt-2 font-bold\">\n        Total: ${(total / 100).toFixed(2)}\n      </div>\n    </div>\n  )\n}",
+  "completions": [
+    { "label": "items.reduce", "type": "method", "detail": "calculate total" },
+    { "label": "items.map", "type": "method", "detail": "render each item" },
+    { "label": ".toFixed(2)", "type": "method", "detail": "format to 2 decimals" }
+  ],
+  "tests": [
+    { "id": "t1", "label": "Exports CartSummary component", "type": "string-includes", "value": "CartSummary" },
+    { "id": "t2", "label": "Calculates total using reduce", "type": "string-includes", "value": ".reduce(" },
+    { "id": "t3", "label": "Handles empty cart state", "type": "string-includes", "value": "cart is empty" },
+    { "id": "t4", "label": "Displays item quantities", "type": "string-includes", "value": "quantity" },
+    { "id": "t5", "label": "Shows total price", "type": "string-includes", "value": "Total" }
+  ]
+}

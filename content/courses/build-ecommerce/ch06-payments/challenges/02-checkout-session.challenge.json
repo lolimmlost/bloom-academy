@@ -1,0 +1,21 @@
+{
+  "id": "02-checkout-session",
+  "type": "code-write",
+  "language": "typescript",
+  "starterCode": "// Create a server function that creates a Stripe checkout session\n// Accept an array of cart items\n\n",
+  "solution": "import Stripe from \"stripe\"\nimport { createServerFn } from \"@tanstack/react-start\"\n\nconst stripe = new Stripe(process.env.STRIPE_SECRET_KEY!)\n\ntype CartItem = { name: string; price: number; quantity: number }\n\nexport const createCheckout = createServerFn(\"POST\", async (items: CartItem[]) => {\n  const session = await stripe.checkout.sessions.create({\n    mode: \"payment\",\n    line_items: items.map((item) => ({\n      price_data: {\n        currency: \"usd\",\n        product_data: { name: item.name },\n        unit_amount: item.price,\n      },\n      quantity: item.quantity,\n    })),\n    success_url: `${process.env.BETTER_AUTH_URL}/orders/success`,\n    cancel_url: `${process.env.BETTER_AUTH_URL}/cart`,\n  })\n\n  return { url: session.url }\n})",
+  "completions": [
+    { "label": "Stripe", "type": "class", "detail": "stripe" },
+    { "label": "stripe.checkout.sessions.create", "type": "method", "detail": "create checkout" },
+    { "label": "line_items", "type": "property", "detail": "items to purchase" },
+    { "label": "price_data", "type": "property", "detail": "inline price" },
+    { "label": "success_url", "type": "property", "detail": "redirect on success" }
+  ],
+  "tests": [
+    { "id": "t1", "label": "Imports Stripe", "type": "string-includes", "value": "Stripe" },
+    { "id": "t2", "label": "Creates a checkout session", "type": "string-includes", "value": "checkout.sessions.create" },
+    { "id": "t3", "label": "Sets payment mode", "type": "string-includes", "value": "\"payment\"" },
+    { "id": "t4", "label": "Maps cart items to line_items", "type": "string-includes", "value": "line_items" },
+    { "id": "t5", "label": "Includes success and cancel URLs", "type": "string-includes", "value": "success_url" }
+  ]
+}

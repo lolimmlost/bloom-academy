@@ -1,0 +1,20 @@
+{
+  "id": "04-sessions",
+  "type": "code-write",
+  "language": "tsx",
+  "starterCode": "// Create a UserStatus component\n// Show user email if logged in, or \"Sign In\" link if not\n\n",
+  "solution": "import { authClient } from \"@/lib/auth-client\"\n\nexport function UserStatus() {\n  const { data: session } = authClient.useSession()\n\n  if (!session?.user) {\n    return <a href=\"/auth\">Sign In</a>\n  }\n\n  return (\n    <div>\n      <span>{session.user.email}</span>\n      <button onClick={() => authClient.signOut()}>Sign Out</button>\n    </div>\n  )\n}",
+  "completions": [
+    { "label": "useSession", "type": "method", "detail": "get current session" },
+    { "label": "session.user", "type": "property", "detail": "current user object" },
+    { "label": "session.user.email", "type": "property", "detail": "user email" },
+    { "label": "signOut", "type": "method", "detail": "log out user" }
+  ],
+  "tests": [
+    { "id": "t1", "label": "Uses useSession hook", "type": "string-includes", "value": "useSession" },
+    { "id": "t2", "label": "Checks if user is logged in", "type": "string-includes", "value": "session" },
+    { "id": "t3", "label": "Displays user email when logged in", "type": "string-includes", "value": "email" },
+    { "id": "t4", "label": "Shows sign in option when logged out", "type": "string-includes", "value": "Sign In" },
+    { "id": "t5", "label": "Has sign out functionality", "type": "string-includes", "value": "signOut" }
+  ]
+}

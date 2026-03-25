@@ -1,0 +1,21 @@
+{
+  "id": "02-docker-basics",
+  "type": "code-write",
+  "language": "typescript",
+  "starterCode": "# Write a multi-stage Dockerfile\n# Build stage: install deps and build\n# Production stage: copy output and run\n\n",
+  "solution": "FROM node:20-slim AS build\nWORKDIR /app\nCOPY package.json pnpm-lock.yaml ./\nRUN corepack enable && pnpm install --frozen-lockfile\nCOPY . .\nRUN pnpm build\n\nFROM node:20-slim AS production\nWORKDIR /app\nCOPY --from=build /app/.output ./.output\nEXPOSE 3000\nENV PORT=3000\nCMD [\"node\", \".output/server/index.mjs\"]",
+  "completions": [
+    { "label": "FROM node:20-slim AS build", "type": "keyword", "detail": "build stage" },
+    { "label": "WORKDIR /app", "type": "keyword", "detail": "set directory" },
+    { "label": "COPY --from=build", "type": "keyword", "detail": "copy from stage" },
+    { "label": "RUN pnpm install --frozen-lockfile", "type": "keyword", "detail": "install deps" },
+    { "label": "EXPOSE 3000", "type": "keyword", "detail": "expose port" }
+  ],
+  "tests": [
+    { "id": "t1", "label": "Uses multi-stage build with AS", "type": "string-includes", "value": "AS build" },
+    { "id": "t2", "label": "Installs dependencies with frozen lockfile", "type": "string-includes", "value": "frozen-lockfile" },
+    { "id": "t3", "label": "Runs the build command", "type": "string-includes", "value": "pnpm build" },
+    { "id": "t4", "label": "Copies build output to production stage", "type": "string-includes", "value": "COPY --from=build" },
+    { "id": "t5", "label": "Sets the start command", "type": "string-includes", "value": "CMD" }
+  ]
+}

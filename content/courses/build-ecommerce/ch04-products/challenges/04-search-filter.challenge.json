@@ -1,0 +1,19 @@
+{
+  "id": "04-search-filter",
+  "type": "code-write",
+  "language": "typescript",
+  "starterCode": "// Define search params validation\n// and a server function to search products\n\n",
+  "solution": "import { createServerFn } from \"@tanstack/react-start\"\nimport { db } from \"@/database/db\"\nimport { products } from \"@/database/schema\"\nimport { ilike, eq, and } from \"drizzle-orm\"\n\nexport const searchProducts = createServerFn(\"GET\", async (params: { query?: string; category?: string }) => {\n  const conditions = []\n\n  if (params.query) {\n    conditions.push(ilike(products.name, `%${params.query}%`))\n  }\n  if (params.category) {\n    conditions.push(eq(products.category, params.category))\n  }\n\n  return db.select().from(products).where(and(...conditions))\n})",
+  "completions": [
+    { "label": "ilike", "type": "function", "detail": "case-insensitive LIKE" },
+    { "label": "and", "type": "function", "detail": "combine conditions" },
+    { "label": "createServerFn", "type": "function", "detail": "@tanstack/react-start" }
+  ],
+  "tests": [
+    { "id": "t1", "label": "Uses createServerFn", "type": "string-includes", "value": "createServerFn" },
+    { "id": "t2", "label": "Supports text search with ilike", "type": "string-includes", "value": "ilike" },
+    { "id": "t3", "label": "Supports category filtering", "type": "string-includes", "value": "category" },
+    { "id": "t4", "label": "Combines conditions with and()", "type": "string-includes", "value": "and(" },
+    { "id": "t5", "label": "Queries from products table", "type": "string-includes", "value": ".from(products)" }
+  ]
+}

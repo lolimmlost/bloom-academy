@@ -1,0 +1,21 @@
+{
+  "id": "03-login-register",
+  "type": "code-write",
+  "language": "typescript",
+  "starterCode": "// Write a login function using the auth client\n// Handle success and error cases\n\n",
+  "solution": "import { authClient } from \"@/lib/auth-client\"\n\nexport async function handleLogin(email: string, password: string) {\n  const { data, error } = await authClient.signIn.email({\n    email,\n    password,\n  })\n\n  if (error) {\n    throw new Error(error.message)\n  }\n\n  return data\n}",
+  "completions": [
+    { "label": "authClient", "type": "variable", "detail": "auth client instance" },
+    { "label": "signIn.email", "type": "method", "detail": "email sign in" },
+    { "label": "signUp.email", "type": "method", "detail": "email sign up" },
+    { "label": "email", "type": "property", "detail": "user email" },
+    { "label": "password", "type": "property", "detail": "user password" }
+  ],
+  "tests": [
+    { "id": "t1", "label": "Imports authClient", "type": "string-includes", "value": "authClient" },
+    { "id": "t2", "label": "Uses signIn.email method", "type": "string-includes", "value": "signIn.email" },
+    { "id": "t3", "label": "Passes email parameter", "type": "string-includes", "value": "email" },
+    { "id": "t4", "label": "Passes password parameter", "type": "string-includes", "value": "password" },
+    { "id": "t5", "label": "Handles error case", "type": "string-includes", "value": "error" }
+  ]
+}

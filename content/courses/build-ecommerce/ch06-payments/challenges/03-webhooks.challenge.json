@@ -1,0 +1,20 @@
+{
+  "id": "03-webhooks",
+  "type": "code-write",
+  "language": "typescript",
+  "starterCode": "// Write a webhook handler for Stripe events\n// Verify the signature and handle checkout.session.completed\n\n",
+  "solution": "import Stripe from \"stripe\"\n\nconst stripe = new Stripe(process.env.STRIPE_SECRET_KEY!)\n\nexport async function handleWebhook(request: Request) {\n  const body = await request.text()\n  const signature = request.headers.get(\"stripe-signature\")!\n\n  const event = stripe.webhooks.constructEvent(\n    body,\n    signature,\n    process.env.STRIPE_WEBHOOK_SECRET!\n  )\n\n  if (event.type === \"checkout.session.completed\") {\n    const session = event.data.object as Stripe.Checkout.Session\n    await createOrder(session)\n  }\n\n  return new Response(\"ok\")\n}",
+  "completions": [
+    { "label": "stripe.webhooks.constructEvent", "type": "method", "detail": "verify webhook" },
+    { "label": "request.headers.get(\"stripe-signature\")", "type": "method", "detail": "get signature" },
+    { "label": "event.type", "type": "property", "detail": "event type string" },
+    { "label": "event.data.object", "type": "property", "detail": "event payload" }
+  ],
+  "tests": [
+    { "id": "t1", "label": "Imports Stripe", "type": "string-includes", "value": "Stripe" },
+    { "id": "t2", "label": "Verifies webhook signature", "type": "string-includes", "value": "constructEvent" },
+    { "id": "t3", "label": "Gets the stripe-signature header", "type": "string-includes", "value": "stripe-signature" },
+    { "id": "t4", "label": "Handles checkout.session.completed event", "type": "string-includes", "value": "checkout.session.completed" },
+    { "id": "t5", "label": "Returns a response", "type": "string-includes", "value": "Response" }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "id": "02-product-listing",
+  "type": "code-write",
+  "language": "tsx",
+  "starterCode": "// Create a server function to fetch products\n// and a component to display them in a grid\n\n",
+  "solution": "import { createServerFn } from \"@tanstack/react-start\"\nimport { db } from \"@/database/db\"\nimport { products } from \"@/database/schema\"\n\nconst fetchProducts = createServerFn(\"GET\", async () => {\n  return db.select().from(products)\n})\n\nexport function ProductGrid({ products }: { products: any[] }) {\n  return (\n    <div className=\"grid grid-cols-1 md:grid-cols-3 gap-6\">\n      {products.map((product) => (\n        <div key={product.id} className=\"border rounded-lg p-4\">\n          <h3 className=\"font-semibold\">{product.name}</h3>\n          <p>${(product.price / 100).toFixed(2)}</p>\n        </div>\n      ))}\n    </div>\n  )\n}",
+  "completions": [
+    { "label": "createServerFn", "type": "function", "detail": "@tanstack/react-start" },
+    { "label": "db.select().from()", "type": "method", "detail": "query all rows" },
+    { "label": "grid grid-cols-1 md:grid-cols-3", "type": "text", "detail": "responsive grid" },
+    { "label": "products.map", "type": "method", "detail": "iterate products" }
+  ],
+  "tests": [
+    { "id": "t1", "label": "Uses createServerFn", "type": "string-includes", "value": "createServerFn" },
+    { "id": "t2", "label": "Queries from products table", "type": "string-includes", "value": ".from(products)" },
+    { "id": "t3", "label": "Uses a responsive grid layout", "type": "string-includes", "value": "grid" },
+    { "id": "t4", "label": "Maps over products to render them", "type": "string-includes", "value": ".map(" },
+    { "id": "t5", "label": "Displays product name", "type": "string-includes", "value": "product.name" }
+  ]
+}

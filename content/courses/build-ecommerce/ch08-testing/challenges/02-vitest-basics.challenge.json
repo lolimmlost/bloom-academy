@@ -1,0 +1,22 @@
+{
+  "id": "02-vitest-basics",
+  "type": "code-write",
+  "language": "typescript",
+  "starterCode": "// Write tests for a cart reducer\n// Test add, remove, and updateQuantity actions\n\n",
+  "solution": "import { describe, it, expect } from \"vitest\"\nimport { cartReducer } from \"./cart\"\n\ndescribe(\"cartReducer\", () => {\n  it(\"adds a new item to the cart\", () => {\n    const result = cartReducer([], {\n      type: \"add\",\n      item: { id: \"1\", name: \"Rose Bouquet\", price: 4500 },\n    })\n    expect(result).toHaveLength(1)\n    expect(result[0].quantity).toBe(1)\n  })\n\n  it(\"increments quantity for existing items\", () => {\n    const state = [{ id: \"1\", name: \"Rose Bouquet\", price: 4500, quantity: 1 }]\n    const result = cartReducer(state, {\n      type: \"add\",\n      item: { id: \"1\", name: \"Rose Bouquet\", price: 4500 },\n    })\n    expect(result[0].quantity).toBe(2)\n  })\n\n  it(\"removes an item from the cart\", () => {\n    const state = [{ id: \"1\", name: \"Rose Bouquet\", price: 4500, quantity: 1 }]\n    const result = cartReducer(state, { type: \"remove\", id: \"1\" })\n    expect(result).toHaveLength(0)\n  })\n})",
+  "completions": [
+    { "label": "describe", "type": "function", "detail": "test suite" },
+    { "label": "it", "type": "function", "detail": "test case" },
+    { "label": "expect", "type": "function", "detail": "assertion" },
+    { "label": ".toBe()", "type": "method", "detail": "exact equality" },
+    { "label": ".toHaveLength()", "type": "method", "detail": "array length" },
+    { "label": ".toEqual()", "type": "method", "detail": "deep equality" }
+  ],
+  "tests": [
+    { "id": "t1", "label": "Uses describe to group tests", "type": "string-includes", "value": "describe(" },
+    { "id": "t2", "label": "Uses it/test to define test cases", "type": "string-includes", "value": "it(" },
+    { "id": "t3", "label": "Uses expect for assertions", "type": "string-includes", "value": "expect(" },
+    { "id": "t4", "label": "Tests the add action", "type": "string-includes", "value": "\"add\"" },
+    { "id": "t5", "label": "Tests the remove action", "type": "string-includes", "value": "\"remove\"" }
+  ]
+}

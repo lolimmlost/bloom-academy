@@ -1,0 +1,19 @@
+{
+  "id": "03-order-management",
+  "type": "code-write",
+  "language": "typescript",
+  "starterCode": "// Fetch paginated orders with optional status filter\n\n",
+  "solution": "import { db } from \"@/database/db\"\nimport { orders } from \"@/database/schema\"\nimport { eq, desc } from \"drizzle-orm\"\n\nexport async function getOrders(page: number, status?: string) {\n  const limit = 20\n  const offset = (page - 1) * limit\n\n  let query = db.select().from(orders).orderBy(desc(orders.createdAt)).limit(limit).offset(offset)\n\n  if (status) {\n    query = query.where(eq(orders.status, status)) as typeof query\n  }\n\n  return query\n}",
+  "completions": [
+    { "label": "desc", "type": "function", "detail": "descending order" },
+    { "label": ".limit()", "type": "method", "detail": "limit results" },
+    { "label": ".offset()", "type": "method", "detail": "skip results" }
+  ],
+  "tests": [
+    { "id": "t1", "label": "Queries from orders table", "type": "string-includes", "value": ".from(orders)" },
+    { "id": "t2", "label": "Implements pagination with limit", "type": "string-includes", "value": ".limit(" },
+    { "id": "t3", "label": "Implements pagination with offset", "type": "string-includes", "value": ".offset(" },
+    { "id": "t4", "label": "Orders by most recent first", "type": "string-includes", "value": "desc(" },
+    { "id": "t5", "label": "Supports status filtering", "type": "string-includes", "value": "status" }
+  ]
+}

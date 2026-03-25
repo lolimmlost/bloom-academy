@@ -1,0 +1,20 @@
+{
+  "id": "02-drizzle-setup",
+  "type": "code-write",
+  "language": "typescript",
+  "starterCode": "// Configure Drizzle ORM for PostgreSQL\n// Export a default config using defineConfig\n\n",
+  "solution": "import { defineConfig } from \"drizzle-kit\"\n\nexport default defineConfig({\n  dialect: \"postgresql\",\n  schema: \"./src/database/schema.ts\",\n  dbCredentials: {\n    url: process.env.DATABASE_URL!,\n  },\n})",
+  "completions": [
+    { "label": "defineConfig", "type": "function", "detail": "drizzle-kit" },
+    { "label": "import { defineConfig } from \"drizzle-kit\"", "type": "keyword", "detail": "import statement", "template": "import { defineConfig } from \"drizzle-kit\"\n" },
+    { "label": "dialect", "type": "property", "detail": "database dialect" },
+    { "label": "schema", "type": "property", "detail": "schema file path" },
+    { "label": "dbCredentials", "type": "property", "detail": "connection config" }
+  ],
+  "tests": [
+    { "id": "t1", "label": "Imports defineConfig from drizzle-kit", "type": "string-includes", "value": "defineConfig" },
+    { "id": "t2", "label": "Sets dialect to postgresql", "type": "string-includes", "value": "\"postgresql\"" },
+    { "id": "t3", "label": "Points schema to the correct path", "type": "string-includes", "value": "schema" },
+    { "id": "t4", "label": "Uses DATABASE_URL for connection", "type": "string-includes", "value": "DATABASE_URL" }
+  ]
+}

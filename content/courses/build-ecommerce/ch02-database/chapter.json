@@ -1,0 +1,7 @@
+{
+  "id": "ch02-database",
+  "slug": "ch02-database",
+  "title": "Database & Drizzle ORM",
+  "description": "Connect to PostgreSQL and build type-safe database schemas with Drizzle ORM.",
+  "order": 2
+}

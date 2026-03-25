@@ -1,0 +1,21 @@
+{
+  "id": "02-cart-store",
+  "type": "code-write",
+  "language": "typescript",
+  "starterCode": "// Create a cart reducer with add, remove, and updateQuantity actions\n\ntype CartItem = { id: string; name: string; price: number; quantity: number }\ntype CartAction =\n  | { type: \"add\"; item: Omit<CartItem, \"quantity\"> }\n  | { type: \"remove\"; id: string }\n  | { type: \"updateQuantity\"; id: string; quantity: number }\n\n",
+  "solution": "type CartItem = { id: string; name: string; price: number; quantity: number }\ntype CartAction =\n  | { type: \"add\"; item: Omit<CartItem, \"quantity\"> }\n  | { type: \"remove\"; id: string }\n  | { type: \"updateQuantity\"; id: string; quantity: number }\n\nexport function cartReducer(state: CartItem[], action: CartAction): CartItem[] {\n  switch (action.type) {\n    case \"add\": {\n      const existing = state.find((item) => item.id === action.item.id)\n      if (existing) {\n        return state.map((item) =>\n          item.id === action.item.id\n            ? { ...item, quantity: item.quantity + 1 }\n            : item\n        )\n      }\n      return [...state, { ...action.item, quantity: 1 }]\n    }\n    case \"remove\":\n      return state.filter((item) => item.id !== action.id)\n    case \"updateQuantity\":\n      return state.map((item) =>\n        item.id === action.id ? { ...item, quantity: action.quantity } : item\n      )\n  }\n}",
+  "completions": [
+    { "label": "cartReducer", "type": "function", "detail": "reducer function" },
+    { "label": "switch (action.type)", "type": "keyword", "detail": "action handler" },
+    { "label": "state.find", "type": "method", "detail": "find existing item" },
+    { "label": "state.map", "type": "method", "detail": "update items" },
+    { "label": "state.filter", "type": "method", "detail": "remove items" }
+  ],
+  "tests": [
+    { "id": "t1", "label": "Exports a cartReducer function", "type": "regex", "value": "function\\s+cartReducer" },
+    { "id": "t2", "label": "Handles 'add' action", "type": "string-includes", "value": "case \"add\"" },
+    { "id": "t3", "label": "Handles 'remove' action", "type": "string-includes", "value": "case \"remove\"" },
+    { "id": "t4", "label": "Handles 'updateQuantity' action", "type": "string-includes", "value": "case \"updateQuantity\"" },
+    { "id": "t5", "label": "Increments quantity for existing items", "type": "string-includes", "value": "quantity + 1" }
+  ]
+}

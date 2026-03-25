@@ -1,0 +1,7 @@
+{
+  "id": "ch04-products",
+  "slug": "ch04-products",
+  "title": "Product Catalog",
+  "description": "Build dynamic product pages with server functions, search, and filtering.",
+  "order": 4
+}

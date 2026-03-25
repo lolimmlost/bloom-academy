@@ -1,0 +1,7 @@
+{
+  "id": "ch08-testing",
+  "slug": "ch08-testing",
+  "title": "Testing Your App",
+  "description": "Write unit tests, component tests, and integration tests with Vitest and Testing Library.",
+  "order": 8
+}

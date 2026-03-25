@@ -1,0 +1,7 @@
+{
+  "id": "ch05-cart",
+  "slug": "ch05-cart",
+  "title": "Shopping Cart",
+  "description": "Build a shopping cart with client-side state management and optimistic updates.",
+  "order": 5
+}

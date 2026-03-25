@@ -1,0 +1,7 @@
+{
+  "id": "ch06-payments",
+  "slug": "ch06-payments",
+  "title": "Stripe Payments",
+  "description": "Integrate Stripe for secure checkout, payment processing, and webhook handling.",
+  "order": 6
+}

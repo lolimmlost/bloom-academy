@@ -1,0 +1,19 @@
+{
+  "id": "02-data-aggregation",
+  "type": "code-write",
+  "language": "typescript",
+  "starterCode": "// Write a function to compute dashboard statistics\n// Total orders, total revenue, and average order value\n\n",
+  "solution": "import { db } from \"@/database/db\"\nimport { orders } from \"@/database/schema\"\nimport { count, sum, avg } from \"drizzle-orm\"\n\nexport async function getDashboardStats() {\n  const [stats] = await db\n    .select({\n      totalOrders: count(orders.id),\n      totalRevenue: sum(orders.total),\n      avgOrderValue: avg(orders.total),\n    })\n    .from(orders)\n\n  return {\n    totalOrders: stats.totalOrders,\n    totalRevenue: Number(stats.totalRevenue ?? 0),\n    avgOrderValue: Number(stats.avgOrderValue ?? 0),\n  }\n}",
+  "completions": [
+    { "label": "count", "type": "function", "detail": "COUNT aggregate" },
+    { "label": "sum", "type": "function", "detail": "SUM aggregate" },
+    { "label": "avg", "type": "function", "detail": "AVG aggregate" }
+  ],
+  "tests": [
+    { "id": "t1", "label": "Uses count() for total orders", "type": "string-includes", "value": "count(" },
+    { "id": "t2", "label": "Uses sum() for total revenue", "type": "string-includes", "value": "sum(" },
+    { "id": "t3", "label": "Uses avg() for average order value", "type": "string-includes", "value": "avg(" },
+    { "id": "t4", "label": "Queries from orders table", "type": "string-includes", "value": ".from(orders)" },
+    { "id": "t5", "label": "Returns stats object", "type": "string-includes", "value": "totalOrders" }
+  ]
+}

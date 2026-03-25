@@ -1,0 +1,22 @@
+{
+  "id": "04-queries",
+  "type": "code-write",
+  "language": "typescript",
+  "starterCode": "// Write a function to find products by category\n// ordered by price (lowest first)\n\n",
+  "solution": "import { eq, asc } from \"drizzle-orm\"\nimport { db } from \"./db\"\nimport { products } from \"./schema\"\n\nexport async function getProductsByCategory(category: string) {\n  return db\n    .select()\n    .from(products)\n    .where(eq(products.category, category))\n    .orderBy(asc(products.price))\n}",
+  "completions": [
+    { "label": "eq", "type": "function", "detail": "equals comparison" },
+    { "label": "asc", "type": "function", "detail": "ascending order" },
+    { "label": "db.select()", "type": "method", "detail": "start a SELECT query" },
+    { "label": ".from()", "type": "method", "detail": "specify table" },
+    { "label": ".where()", "type": "method", "detail": "filter rows" },
+    { "label": ".orderBy()", "type": "method", "detail": "sort results" }
+  ],
+  "tests": [
+    { "id": "t1", "label": "Uses db.select() to start the query", "type": "string-includes", "value": ".select()" },
+    { "id": "t2", "label": "Queries from the products table", "type": "string-includes", "value": ".from(products)" },
+    { "id": "t3", "label": "Filters by category using eq()", "type": "string-includes", "value": "eq(" },
+    { "id": "t4", "label": "Orders by price", "type": "string-includes", "value": "orderBy" },
+    { "id": "t5", "label": "Exports an async function", "type": "regex", "value": "async\\s+function" }
+  ]
+}

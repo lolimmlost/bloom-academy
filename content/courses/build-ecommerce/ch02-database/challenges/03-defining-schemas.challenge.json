@@ -1,0 +1,26 @@
+{
+  "id": "03-defining-schemas",
+  "type": "code-write",
+  "language": "typescript",
+  "starterCode": "// Define a products table for the flower shop\n// Use pgTable from drizzle-orm/pg-core\n\n",
+  "solution": "import { pgTable, text, integer, boolean, timestamp } from \"drizzle-orm/pg-core\"\n\nexport const products = pgTable(\"products\", {\n  id: text(\"id\").primaryKey(),\n  name: text(\"name\").notNull(),\n  description: text(\"description\").notNull(),\n  price: integer(\"price\").notNull(),\n  imageUrl: text(\"image_url\"),\n  category: text(\"category\").notNull(),\n  inStock: boolean(\"in_stock\").notNull().default(true),\n  createdAt: timestamp(\"created_at\").notNull().defaultNow(),\n})",
+  "completions": [
+    { "label": "pgTable", "type": "function", "detail": "drizzle-orm/pg-core" },
+    { "label": "text", "type": "function", "detail": "text column" },
+    { "label": "integer", "type": "function", "detail": "integer column" },
+    { "label": "boolean", "type": "function", "detail": "boolean column" },
+    { "label": "timestamp", "type": "function", "detail": "timestamp column" },
+    { "label": ".notNull()", "type": "method", "detail": "not null constraint" },
+    { "label": ".primaryKey()", "type": "method", "detail": "primary key" },
+    { "label": ".default()", "type": "method", "detail": "default value" },
+    { "label": ".defaultNow()", "type": "method", "detail": "default to current time" }
+  ],
+  "tests": [
+    { "id": "t1", "label": "Imports pgTable from drizzle-orm/pg-core", "type": "string-includes", "value": "pgTable" },
+    { "id": "t2", "label": "Defines a products table", "type": "regex", "value": "pgTable\\s*\\(\\s*[\"']products[\"']" },
+    { "id": "t3", "label": "Has a name column with notNull", "type": "regex", "value": "name.*notNull" },
+    { "id": "t4", "label": "Has an integer price column", "type": "regex", "value": "integer\\s*\\(\\s*[\"']price[\"']\\s*\\)" },
+    { "id": "t5", "label": "Has a boolean inStock column", "type": "regex", "value": "boolean\\s*\\(\\s*[\"']in_stock[\"']\\s*\\)" },
+    { "id": "t6", "label": "Has a createdAt timestamp", "type": "string-includes", "value": "timestamp" }
+  ]
+}
