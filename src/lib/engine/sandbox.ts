@@ -1,3 +1,5 @@
+import SandboxWorker from "./worker?worker"
+
 export interface TestResult {
   id: string
   label: string
@@ -26,8 +28,7 @@ export class CodeSandbox {
   private worker: Worker | null = null
 
   private createWorker(): Worker {
-    const workerUrl = new URL("./worker.ts", import.meta.url)
-    return new Worker(workerUrl, { type: "module" })
+    return new SandboxWorker()
   }
 
   async run(code: string, tests: SandboxTest[], setupCode?: string): Promise<SandboxResult> {
