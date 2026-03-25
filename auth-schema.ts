@@ -1,4 +1,5 @@
-import { boolean, pgTable, text, timestamp } from "drizzle-orm/pg-core"
+import { boolean, integer, jsonb, pgTable, text, timestamp } from "drizzle-orm/pg-core"
+import { randomUUID } from "node:crypto"
 
 export const users = pgTable("users", {
     id: text("id").primaryKey(),
@@ -48,4 +49,76 @@ export const verifications = pgTable("verifications", {
     expiresAt: timestamp("expires_at").notNull(),
     createdAt: timestamp("created_at"),
     updatedAt: timestamp("updated_at")
+})
+
+// ── App tables ──────────────────────────────────────────────
+
+export const userProfiles = pgTable("user_profiles", {
+    id: text("id").primaryKey().$defaultFn(() => randomUUID()),
+    userId: text("user_id")
+        .notNull()
+        .unique()
+        .references(() => users.id, { onDelete: "cascade" }),
+    displayName: text("display_name"),
+    avatarUrl: text("avatar_url"),
+    totalXP: integer("total_xp").notNull().default(0),
+    level: integer("level").notNull().default(1),
+    currentStreak: integer("current_streak").notNull().default(0),
+    longestStreak: integer("longest_streak").notNull().default(0),
+    lastActiveDate: text("last_active_date"),
+    editorFontSize: integer("editor_font_size"),
+    editorTabSize: integer("editor_tab_size"),
+    soundEnabled: boolean("sound_enabled"),
+    createdAt: timestamp("created_at").notNull().defaultNow(),
+    updatedAt: timestamp("updated_at").notNull().defaultNow(),
+})
+
+export const lessonProgress = pgTable("lesson_progress", {
+    id: text("id").primaryKey().$defaultFn(() => randomUUID()),
+    userId: text("user_id")
+        .notNull()
+        .references(() => users.id, { onDelete: "cascade" }),
+    courseId: text("course_id").notNull(),
+    chapterId: text("chapter_id").notNull(),
+    lessonId: text("lesson_id").notNull(),
+    status: text("status").notNull().default("not-started"),
+    xpEarned: integer("xp_earned").notNull().default(0),
+    attempts: integer("attempts").notNull().default(0),
+    hintsUsed: integer("hints_used").notNull().default(0),
+    solutionViewed: boolean("solution_viewed").notNull().default(false),
+    lastCode: text("last_code"),
+    timeSpentSecs: integer("time_spent_secs").notNull().default(0),
+    completedAt: timestamp("completed_at"),
+    createdAt: timestamp("created_at").notNull().defaultNow(),
+})
+
+export const streakHistory = pgTable("streak_history", {
+    id: text("id").primaryKey().$defaultFn(() => randomUUID()),
+    userId: text("user_id")
+        .notNull()
+        .references(() => users.id, { onDelete: "cascade" }),
+    date: text("date").notNull(),
+    lessonsCompleted: integer("lessons_completed").notNull().default(0),
+    xpEarned: integer("xp_earned").notNull().default(0),
+})
+
+export const achievements = pgTable("achievements", {
+    id: text("id").primaryKey().$defaultFn(() => randomUUID()),
+    key: text("key").notNull().unique(),
+    name: text("name").notNull(),
+    description: text("description").notNull(),
+    icon: text("icon").notNull(),
+    xpReward: integer("xp_reward").notNull().default(0),
+    criteria: jsonb("criteria").notNull(),
+})
+
+export const userAchievements = pgTable("user_achievements", {
+    id: text("id").primaryKey().$defaultFn(() => randomUUID()),
+    userId: text("user_id")
+        .notNull()
+        .references(() => users.id, { onDelete: "cascade" }),
+    achievementKey: text("achievement_key")
+        .notNull()
+        .references(() => achievements.key),
+    unlockedAt: timestamp("unlocked_at").notNull().defaultNow(),
 })
