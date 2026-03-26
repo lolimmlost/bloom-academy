@@ -126,7 +126,7 @@ function LessonPage() {
   // Scroll content panel to top and mark lesson in-progress on lesson change
   useEffect(() => {
     if (lesson) {
-      contentRef.current?.scrollTo(0, 0)
+      contentRef.current?.scrollTo({ top: 0, behavior: "smooth" })
       markLessonInProgress(lesson.courseId, lesson.chapterId, lesson.id)
     }
   }, [lesson?.id])
