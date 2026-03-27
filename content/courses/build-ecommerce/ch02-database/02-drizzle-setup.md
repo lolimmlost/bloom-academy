@@ -108,6 +108,7 @@ pnpm add -D drizzle-kit
 Write a Drizzle configuration object using `defineConfig`. Your config should:
 
 1. Import `defineConfig` from `"drizzle-kit"`
-2. Set the `dialect` to `"postgresql"`
-3. Set the `schema` path to `"./src/database/schema.ts"`
-4. Configure `dbCredentials` with a `url` property that reads from `process.env.DATABASE_URL!`
+2. Export a default config using `defineConfig`
+3. Set the `dialect` to `"postgresql"`
+4. Set the `schema` path to `"./src/database/schema.ts"`
+5. Configure `dbCredentials` with a `url` property that reads from `process.env.DATABASE_URL!`
