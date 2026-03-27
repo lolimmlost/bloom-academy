@@ -162,6 +162,7 @@ function LessonPage() {
     if (settings.confirmLessonComplete) {
       setShowComplete(true)
     } else if (settings.autoAdvance && nextLesson) {
+      contentRef.current?.scrollTo({ top: 0, behavior: "smooth" })
       navigate({
         to: "/courses/$courseSlug/$chapterSlug/$lessonSlug",
         params: {
@@ -198,6 +199,7 @@ function LessonPage() {
   const handleNextLesson = useCallback(() => {
     if (nextLesson) {
       setShowComplete(false)
+      contentRef.current?.scrollTo({ top: 0, behavior: "smooth" })
       navigate({
         to: "/courses/$courseSlug/$chapterSlug/$lessonSlug",
         params: {
