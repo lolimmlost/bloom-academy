@@ -1,5 +1,5 @@
 # --- Build stage ---
-FROM node:20-slim AS build
+FROM node:25-slim AS build
 
 RUN corepack enable && corepack prepare pnpm@latest --activate
 
@@ -12,7 +12,7 @@ COPY . .
 RUN pnpm build
 
 # --- Production stage ---
-FROM node:20-slim AS production
+FROM node:25-slim AS production
 
 WORKDIR /app
 
